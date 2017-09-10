@@ -8,7 +8,7 @@
     <property name="ECLIPSE_HOME" value="../../../../Program Files/Java/eclipse/"/>
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.8"/>
-    <property name="source" value="1.8"/>
+    <property name="source" value="WebContent"/>
     <path id="Apache Tomcat v9.0 [Apache Tomcat v9.0].libraryclasspath">
         <pathelement location="../../../../Program Files/Java/apache-tomcat-9.0.0.M26/lib/annotations-api.jar"/>
         <pathelement location="../../../../Program Files/Java/apache-tomcat-9.0.0.M26/lib/catalina-ant.jar"/>
@@ -47,7 +47,7 @@
     <target name="init">
         <mkdir dir="build/classes"/>
         <copy includeemptydirs="false" todir="build/classes">
-            <fileset dir="WebContent">
+            <fileset dir="src">
                 <exclude name="**/*.java"/>
             </fileset>
         </copy>

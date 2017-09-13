@@ -74,7 +74,7 @@
     		</classpath>
     		<formatter type="xml" usefile="false" />
     		<batchtest fork="yes" todir="build/TestReports">
-    		      <fileset dir="${source}/ssgs">
+    		      <fileset dir="C:\Users\subodh\git\eclipse-github-jenkins-demo\src">
     		        <include name="**/ValidatorTest.java" />
     		      </fileset>
     		   </batchtest>

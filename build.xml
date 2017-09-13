@@ -73,11 +73,11 @@
     			<pathelement location="C:\Program Files\Java\apache-ant-1.10.1\lib\ant-junit.jar"/>
     		</classpath>
     		<formatter type="xml" usefile="false" />
-    		<batchtest fork="yes" todir="build/TestReports" outfile="result.xml">
+    		<test fork="yes" todir="build/TestReports" outfile="result.xml">
     		      <fileset dir="${source}">
     		        <include name="**/*Test*.java" />
     		      </fileset>
-    		    </batchtest>
+    		    </test>
     	</junit>
     </target>
     <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>

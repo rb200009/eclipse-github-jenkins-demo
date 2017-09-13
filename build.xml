@@ -73,11 +73,11 @@
     			<pathelement location="C:\Program Files\Java\apache-ant-1.10.1\lib\ant-junit.jar"/>
     		</classpath>
     		<formatter type="xml" usefile="false" />
-    		<batchtest fork="yes" todir="build/TestReports">
-    		      <fileset dir="C:\Users\subodh\git\eclipse-github-jenkins-demo\src\ssgs">
-    		        <include name="ValidatorTest.java" />
+    		<batchtest fork="yes" todir="buil/TestReports">
+    		      <fileset dir="src">
+    		        <include name="**/*Test*.java" />
     		      </fileset>
-    		   </batchtest>
+    		    </batchtest>
     	</junit>
     </target>
     <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>

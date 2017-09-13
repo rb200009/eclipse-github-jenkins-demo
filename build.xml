@@ -74,8 +74,8 @@
     		</classpath>
     		<formatter type="xml" usefile="false" />
     		<batchtest fork="yes" todir="build/TestReports">
-    		      <fileset dir="${source}">
-    		        <include name="**/*Test*.java" />
+    		      <fileset dir="${source}/ssgs">
+    		        <include name="**/ValidatorTest.java" />
     		      </fileset>
     		   </batchtest>
     	</junit>

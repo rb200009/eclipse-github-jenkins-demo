@@ -45,10 +45,7 @@
         <path refid="Web App Libraries.libraryclasspath"/>
         <path refid="EAR Libraries.libraryclasspath"/>
     </path>
-  	<!--<path id="selenium">
-  		<pathelement location="c:\program files\java\selenium\client-combined-3.5.3-nodeps.jar"/>
-  		<pathelement location="c:\users\subodh\downloads\selenium-server-standalone-3.5.3.jar"/>
- 	</path>-->
+  	
     <target name="init">
         <mkdir dir="build/classes"/>
         <copy includeemptydirs="false" todir="build/classes">

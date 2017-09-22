@@ -60,7 +60,7 @@
   	<target name="pack" depends="build">
 		 <war destfile="dist/ssgs-ems-profile-editor.war" webxml="WebContent/WEB-INF/web.xml">
 			<fileset dir="WebContent"/>
-			<lib dir="WebContent/WEB-INF/lib"/>
+			<!-- <lib dir="WebContent/WEB-INF/lib"/> -->
 			<classes dir="build/classes"/>
 		</war>
   		<jar destfile = "dist/ValidatorTest.jar" includes="build/classes/MyPkg/ValidatorTest.class"/> 

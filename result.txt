@@ -1,0 +1,9 @@
+Testsuite: ssgs.ValidatorTest
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.047 sec
+
+Testcase: testConCat took 0.015 sec
+	FAILED
+expected:<Subodh[]Sohoni> but was:<Subodh[ ]Sohoni>
+junit.framework.AssertionFailedError: expected:<Subodh[]Sohoni> but was:<Subodh[ ]Sohoni>
+	at ssgs.ValidatorTest.testConCat(ValidatorTest.java:14)
+

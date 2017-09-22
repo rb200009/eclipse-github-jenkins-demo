@@ -3,12 +3,13 @@
               Any modifications will be overwritten.
               To include a user specific buildfile here, simply create one in the same
               directory with the processing instruction <?eclipse.ant.import?>
-              as the first entry and export the buildfile again. --><project basedir="." default="build" name="ssgs-ems-profile-editor">
+              as the first entry and export the buildfile again. -->
+  <project basedir="." default="report" name="ssgs-ems-profile-editor">
     <property environment="env"/>
     <property name="ECLIPSE_HOME" value="../../../../Program Files/Java/eclipse/"/>
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.8"/>
-    <property name="source" value="src"/>
+    <property name="source" value="1.8"/>
     <path id="Apache Tomcat v9.0 [Apache Tomcat v9.0].libraryclasspath">
         <pathelement location="../../../../Program Files/Java/apache-tomcat-9.0.0.M26/lib/annotations-api.jar"/>
         <pathelement location="../../../../Program Files/Java/apache-tomcat-9.0.0.M26/lib/catalina-ant.jar"/>
@@ -44,6 +45,10 @@
         <path refid="Web App Libraries.libraryclasspath"/>
         <path refid="EAR Libraries.libraryclasspath"/>
     </path>
+  	<!--<path id="selenium">
+  		<pathelement location="c:\program files\java\selenium\client-combined-3.5.3-nodeps.jar"/>
+  		<pathelement location="c:\users\subodh\downloads\selenium-server-standalone-3.5.3.jar"/>
+ 	</path>-->
     <target name="init">
         <mkdir dir="build/classes"/>
         <copy includeemptydirs="false" todir="build/classes">
@@ -52,6 +57,82 @@
             </fileset>
         </copy>
     </target>
+  	<target name="pack" depends="build">
+		 <war destfile="dist/ssgs-ems-profile-editor.war" webxml="WebContent/WEB-INF/web.xml">
+			<fileset dir="WebContent"/>
+			<lib dir="WebContent/WEB-INF/lib"/>
+			<classes dir="build/classes"/>
+		</war>
+  		<jar destfile = "dist/ValidatorTest.jar" includes="build/classes/MyPkg/ValidatorTest.class"/> 
+  		<jar destfile = "dist/SeleniumTest.jar"  includes="build/classes/MyPkg/SeleniumTest.class"/>
+  		<jar destfile = "dist/Validator.jar"
+  		   basedir = "build/classes"
+  		   includes = "MyPkg/Validator.class" />  		
+     </target>
+    <target name="test" depends="pack">
+    	<mkdir dir="testresults" />
+    	<junit printsummary="yes">
+    		<classpath>
+    		    <pathelement location="C:\junit\junit-4.12.jar"/>
+    			<pathelement location="C:\junit\hamcrest-core-1.3.jar"/>
+    			<pathelement location="build/classes"/>
+    			<pathelement location="c:\program files\java\selenium\client-combined-3.5.3-nodeps.jar"/>
+    			<pathelement location="c:\users\subodh\downloads\selenium-server-standalone-3.5.3.jar"/>
+
+    			<!-- <pathelement location="C:\Program Files\Java\apache-ant-1.10.1\lib\ant-junit.jar"/>
+    			<pathelement location="C:\Users\subodh\git\eclipse-github-jenkins-demo\dist\ValidatorTest.jar"/>-->
+    		</classpath>
+    		<formatter type="xml"/>
+    		<test  todir="testresults" outfile="result.xml" name="MyPkg.ValidatorTest" />
+    		<test todir="testresults" name="MyPkg.SeleniumTest" outfile="results.xml">
+    		    <formatter type="xml"/>
+    		</test>
+    	</junit>
+    	<!--<selenium printsummary="yes">
+    		<classpath>
+    			<pathelement location="c:\program files\java\selenium\client-combined-3.5.3-nodeps.jar"/>
+    			<pathelement location="c:\users\subodh\downloads\selenium-server-standalone-3.5.3.jar"/>
+    			<pathelement location="build/classes"/>
+    			<pathelement location="C:\Users\subodh\git\eclipse-github-jenkins-demo\dist\SeleniumTest.jar"/>
+    		</classpath>
+    		<test todir="testresults" name="MyPkg.SeleniumTest" outfile="results.xml">
+    			<formatter type="xml"/>
+    		</test>
+    	</selenium>
+    	<junit>
+    		<classpath>
+    		    <pathelement location="C:\junit\junit-4.12.jar"/>
+    			<pathelement location="C:\junit\hamcrest-core-1.3.jar"/>
+    			<pathelement location="build/classes/MyPkg/*.class"/>
+    		</classpath>
+    		<batchtest  haltonfailure="no" todir="testresults">
+    		    <formatter type="xml"/>
+    			<fileset dir="src/MyPkg">
+    				<include name="ValidatorTest.java"/>
+    			</fileset>
+    				
+    		 </batchtest>
+    	</junit>
+    	<selenium>
+    		<classpath>
+    			<pathelement location="c:\program files\java\selenium\client-combined-3.5.3-nodeps.jar"/>
+    			<pathelement location="c:\users\subodh\downloads\selenium-server-standalone-3.5.3.jar"/>
+    			<pathelement location="C:\Users\subodh\git\eclipse-github-jenkins-demo\dist\SeleniumTest.jar"/>
+    		</classpath>
+    		<test name="MyPkg.SeleniumTest" haltonfailure="no" outfile="res">
+    			<formatter type="xml"/>
+    		</test>
+    	</selenium>-->
+    </target>
+  	<target name="report" depends="test" description="Create a report for the rest result">
+	  	<junitreport todir="testresults">
+		  	<fileset dir="testresults">
+		  		<include name="*.xml"/>
+		  	</fileset>
+	  	<report format="frames" todir="testresults"/>
+	  	</junitreport>
+  	</target>
+
     <target name="clean">
         <delete dir="build/classes"/>
     </target>
@@ -60,10 +141,11 @@
     <target name="build-subprojects"/>
     <target depends="init" name="build-project">
         <echo message="${ant.project.name}: ${ant.file}"/>
-        <javac debug="true" debuglevel="${debuglevel}" destdir="build/classes" includeantruntime="false" source="${source}" target="${target}">
+        <javac debug="true" debuglevel="${debuglevel}" destdir="build/classes" includeantruntime="false" source="${source}" target="${target}" classpath="c:/Program Files/Java/eclipse/plugins/org.junit_4.12.0.v201504281640/junit.jar;c:/users/subodh/downloads/selenium-server-standalone-3.5.3.jar;c:\program files\java\selenium\client-combined-3.5.3-nodeps.jar" >
             <src path="src"/>
             <classpath refid="ssgs-ems-profile-editor.classpath"/>
         </javac>
+    	
     </target>
     <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
     <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">

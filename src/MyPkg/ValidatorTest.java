@@ -21,6 +21,7 @@ public class ValidatorTest {
 		Boolean actual, expected=true;
 		Validator val = new Validator();
 		actual = val.Validate("Gouri", "Sohoni");
+		
 		assertEquals(expected,actual);
 	}
 }
